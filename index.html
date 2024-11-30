@@ -30,57 +30,5 @@
         </form>
     </div>
 
-    <script>
-        // Initialize EmailJS with your Public Key
-        emailjs.init('YOUR_PUBLIC_KEY');  // Replace 'YOUR_PUBLIC_KEY' with your actual Public Key from EmailJS
-
-        // Generate an 8-digit random code
-        function generateCode() {
-            return Math.floor(10000000 + Math.random() * 90000000);  // Generates a random 8-digit number
-        }
-
-        // Send email with the generated code
-        function sendCode(email) {
-            const code = generateCode();  // Generate the code
-            const templateParams = {
-                to_email: email,  // The recipient's email address
-                from_name: "Your Name",  // Your name or email
-                code: code,  // The generated code
-            };
-
-            // Send the email using EmailJS
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)  // Replace with your actual service and template IDs
-                .then(function(response) {
-                    console.log('Email sent successfully:', response);
-                    localStorage.setItem('verificationCode', code);  // Store the generated code in localStorage
-                    document.getElementById('emailForm').style.display = 'none';  // Hide the email form
-                    document.getElementById('codeForm').style.display = 'block';  // Show the verification form
-                }, function(error) {
-                    console.log('Error sending email:', error);
-                    alert('Error sending email. Please try again.');
-                });
-        }
-
-        // Handle email form submission
-        document.getElementById('sendEmailForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent the default form submission
-            const email = document.getElementById('email').value;
-            sendCode(email);  // Send the code to the entered email
-        });
-
-        // Handle code verification form submission
-        document.getElementById('verifyForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Prevent the default form submission
-            const enteredCode = document.getElementById('verificationCode').value;
-            const storedCode = localStorage.getItem('verificationCode');  // Retrieve the stored code from localStorage
-
-            if (enteredCode === storedCode) {
-                alert('Code verified successfully!');
-                localStorage.removeItem('verificationCode');  // Clear the stored code
-            } else {
-                alert('Invalid code. Please try again.');
-            }
-        });
-    </script>
 </body>
 </html>
