@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verification</title>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- Include the external script you provided (contains sendCode(email) functionality) -->
     <script src="https://raw.githubusercontent.com/trollsudo/ec/refs/heads/main/main.js?token=GHSAT0AAAAAAC3IBDROJTZK6ZRPY4CB5JLYZ2LTUYA"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
         </form>
     </div>
 
-    <!-- Verification Form -->
+    <!-- Verification Form (Initially Hidden) -->
     <div id="codeForm" style="display:none;">
         <h3>Enter the Code Sent to Your Email</h3>
         <form id="verifyForm">
@@ -30,5 +30,29 @@
         </form>
     </div>
 
+    <script>
+        // Handle email form submission
+        document.getElementById('sendEmailForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+            const email = document.getElementById('email').value;
+            sendCode(email);  // Calls the sendCode function from the external script you provided
+            document.getElementById('emailForm').style.display = 'none';  // Hide email form
+            document.getElementById('codeForm').style.display = 'block';  // Show verification form
+        });
+
+        // Handle code verification form submission
+        document.getElementById('verifyForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the default form submission
+            const enteredCode = document.getElementById('verificationCode').value;
+            const storedCode = localStorage.getItem('verificationCode');  // Retrieve the code stored in localStorage
+
+            if (enteredCode === storedCode) {
+                alert('Code verified successfully!');
+                localStorage.removeItem('verificationCode');  // Clear the stored code
+            } else {
+                alert('Invalid code. Please try again.');
+            }
+        });
+    </script>
 </body>
 </html>
