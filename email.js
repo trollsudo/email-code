@@ -20,7 +20,7 @@ function sendCode(email) {
     // Send the email using EmailJS
     emailjs.send('service_v22bt34', 'template_o4p7alb', templateParams)  // Replace with your actual service and template IDs
         .then(function(response) {
-            console.log('Email sent successfully:', response);
+            console.log('Email sent successfully:');
             // You can use the code or display it in any way here
             alert(`Email sent successfully! `);  // Show the code to the user
         }, function(error) {
