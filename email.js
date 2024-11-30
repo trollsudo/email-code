@@ -22,7 +22,7 @@ function sendCode(email) {
         .then(function(response) {
             console.log('Email sent successfully:', response);
             // You can use the code or display it in any way here
-            alert(`Email sent successfully! Your code: ${code}`);  // Show the code to the user
+            alert(`Email sent successfully! `);  // Show the code to the user
         }, function(error) {
             console.log('Error sending email:', error);
             alert('Error sending email. Please try again.');
